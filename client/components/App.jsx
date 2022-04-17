@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { getWelcome } from '../api'
+import Cricket from './Cricket'
 
 function App() {
   const [welcomeStatement, setWelcomeStatement] = useState('')
@@ -16,7 +17,12 @@ function App() {
       })
   })
 
-  return <h1>{welcomeStatement}</h1>
+  return(
+    <main>
+    <h1>{welcomeStatement}</h1>
+    <Cricket />
+    </main>
+  )
 }
 
 export default App
