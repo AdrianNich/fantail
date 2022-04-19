@@ -3,6 +3,8 @@ const express = require('express')
 require('dotenv').config()
 const apiKey = process.env.API_KEY
 
+// import cricket from '../client/components/Cricket'
+
 // const fetch = require('node-fetch')
 
 const request = require('superagent')
@@ -14,26 +16,30 @@ const server = express()
 const staticFolder = path.join(__dirname, 'public')
 server.use(express.static(staticFolder))
 
-server.get('/find-a-player', (req, res) => {
+server.get('/find-a-player/:name', (req, res) => {
+    const name = req.params.name
     // eslint-disable-next-line promise/catch-or-return
-    request.get('https://unofficial-cricbuzz.p.rapidapi.com/players/search?plrN=Nick%20Kelly')
+    request.get(`https://unofficial-cricbuzz.p.rapidapi.com/players/search?plrN=${name}`)
     .set('X-RapidAPI-Host', 'unofficial-cricbuzz.p.rapidapi.com')
     .set('X-RapidAPI-Key', `${apiKey}`)
     .then((response) => {
-    //   console.log(response.body.player)
+      res.json(response.body)
+      return response.body
+    })    
+})
+
+server.get('/Profile/:id', (req, res) => {
+    const id = req.params.id
+    // eslint-disable-next-line promise/catch-or-return
+    request.get(`https://unofficial-cricbuzz.p.rapidapi.com/players/get-info?playerId=${id}`)
+    .set('X-RapidAPI-Host', 'unofficial-cricbuzz.p.rapidapi.com')
+    .set('X-RapidAPI-Key', `${apiKey}`)
+    .then((response) => {
+    //  console.log(JSON.stringify(response.body))
       res.json(response.body)
       return response.body
     })
-    // .then((response) => {
-    //    response.player.map((playerNames) => console.log("id: " + playerNames.id + " name: " + playerNames.name))
-    //   })
-    
 })
-
-
-// eslint-disable-next-line promise/catch-or-return
-
-
 
 
 
