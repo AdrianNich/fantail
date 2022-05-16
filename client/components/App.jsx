@@ -3,6 +3,7 @@ import {Routes, Route} from 'react-router-dom'
 import { getWelcome } from '../api'
 import Search from './Search'
 import Profile from './Profile'
+import Teams from './Teams'
 
 function App() {
   // const [welcomeStatement, setWelcomeStatement] = useState('')
@@ -20,10 +21,11 @@ function App() {
 
   return(
     <main>
-    <h1>Player Search:</h1>
+    <h1>Eye On The Ball</h1>
     <Routes>
       <Route path='/' element={<Search />}/>
       <Route path='/profile/:id' element={<Profile />} />
+      <Route path='/Teams/:type' element={<Teams />} />
     </Routes>
     </main>
   )

@@ -35,12 +35,22 @@ server.get('/Profile/:id', (req, res) => {
     .set('X-RapidAPI-Host', 'unofficial-cricbuzz.p.rapidapi.com')
     .set('X-RapidAPI-Key', `${apiKey}`)
     .then((response) => {
-    //  console.log(JSON.stringify(response.body))
+      // console.log(response.body.teams)
       res.json(response.body)
       return response.body
     })
 })
 
-
+server.get('/Teams/:type', (req, res) => {
+  // eslint-disable-next-line promise/catch-or-return
+  request.get(`https://unofficial-cricbuzz.p.rapidapi.com/teams/list?matchType=domestic`)
+  .set('X-RapidAPI-Host', 'unofficial-cricbuzz.p.rapidapi.com')
+  .set('X-RapidAPI-Key', `${apiKey}`)
+  .then((response) => {
+    // console.log(response.body.teamData)
+    res.json(response.body)
+    return response.body.TeamData
+  })
+})
 
 module.exports = server

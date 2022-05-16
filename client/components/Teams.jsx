@@ -4,22 +4,34 @@ import { useParams } from 'react-router-dom'
 
 
 
-function Profile() {
+function Teams() {
 
 const [bio, setBio] = useState({})
 const [error, setError] = useState(false)
 const [loading, setLoading] = useState(false)
 const { id } = useParams()
 const [ teams, setTeams ] = useState()
+const Type = 'domestic'
 
+console.log(bio.teams)
+// console.log(id)
 useEffect(() => {
 		setLoading(true)
 		request
-		.get(`/Profile/${id}`)
+		.get(`/Teams/${Type}`)
 		.then((response) => {
-         
-            setBio(response.body)
-			console.log(response.body.teams)
+            // console.log(response.body.teamData)
+			// console.log(JSON.parse(response.player)
+            setTeams(response.body.teamData)
+			// setTeams(response.body.teams)
+			// console.log(response.body)
+		})
+		.then(() => {
+
+		// const team = response.body.teamData
+		// const result = team.find(({teamName}) => teamName === 'Otago')
+			// console.log(teams) 
+
 		})
         .finally(() => {
 			setLoading(false)
@@ -34,20 +46,19 @@ useEffect(() => {
 	    if (error) return <div>error</div>
 	    return (
             <>
-           <div><h1>{bio.name}</h1></div> 
-		   <div>{bio.DoB}</div>
-		   <ul>
-				{bio.teams?.map((team) => {
+		
+		    {/* <ul>
+				{teams.find((teamName === 'Otago')=> {
 						return (
-							<li key={team}>
-								{team}
+							<li key={teamId}>
+								Team:{team} ID:{teamID}
 							</li>
 
 						)
 					}
 				)}
 
-			</ul>
+			</ul>  */}
 
 
             </>
@@ -57,4 +68,4 @@ useEffect(() => {
 
 
 
-export default Profile
+export default Teams
